@@ -11,6 +11,8 @@ export type FAQ = {
 export type CTA = {
   label: string;
   href: string;
+  /** Optional routing note, e.g. "You will be routed to the hub intake." */
+  note?: string;
 };
 
 export type SiteConfig = {
@@ -40,6 +42,14 @@ export type SiteConfig = {
   socialProofBullets: string[];
   /** FAQ entries (shown on /faq and previewed on home) */
   faq: FAQ[];
+  /** Primary anchor keyword for Home copy emphasis (one phrase) */
+  primaryAnchorKeyword?: string;
+  /** Legal/Japanese company name for structured data and footer */
+  companyLegalName?: string;
+  /** Physical base location */
+  companyBase?: string;
+  /** Short operational note about company role */
+  companyNote?: string;
   /** Set true to add Disallow: / in robots.txt and noindex,nofollow meta */
   noindex?: boolean;
 };
@@ -193,10 +203,11 @@ export const SITE_PRESETS: Record<string, SiteConfig> = {
   // ── 3 ──────────────────────────────────────────────────────
   "find-japan-distributor": {
     domain: "find-japan-distributor.neoidigital.com",
-    siteName: "Find Japan Distributor",
-    brandLine: "Identify and qualify the right distribution partner for your product in Japan.",
+    siteName: "NeoiDigital",
+    brandLine: "Find a Japan Distributor",
     primaryIntent:
-      "We run a structured distributor search process to match Malaysian exporters with verified Japan-side distribution partners.",
+      "A structured way to find and qualify Japan-side distributors, sales agents, or resellers for Malaysia exporters.",
+    primaryAnchorKeyword: "find distributor in japan",
     mainKeywords: [
       "find distributor in japan",
       "japan distributor search service",
@@ -217,44 +228,64 @@ export const SITE_PRESETS: Record<string, SiteConfig> = {
       "find japan b2b partner for long term expansion",
     ],
     primaryCTA: {
-      label: "Start Distributor Search",
-      href: "mailto:hello@neoidigital.com?subject=Japan Distributor Search",
+      label: "Request a distributor search call",
+      href: "https://www.japan-market.neoidigital.com/",
+      note: "You will be routed to the hub intake.",
     },
     hubLink: HUB_LINK,
     company: "NeoiDigital",
+    companyLegalName: "ネオインスパイア株式会社",
+    companyBase: "Osaka, Japan",
+    companyNote: "Japan-side outreach and follow-up to reduce drop-off after first contact.",
     localPresence: true,
     socialProofBullets: [
-      "Category-specific distributor network in Japan",
-      "Structured shortlist of 3–5 qualified candidates per search",
-      "Pre-meeting qualification to confirm fit",
-      "Japan-based coordinator handles initial outreach",
-      "Support through first commercial discussion",
+      "Category-fit screening: distributor type and coverage before outreach.",
+      "Qualification logic: capability, after-sales, and channel conflicts checked early.",
+      "Japan-side outreach: structured brief + targeted contact, not bulk emailing.",
+      "Follow-up discipline: cadence and next-step control to reduce drop-off.",
+      "Decision-ready outputs: shortlist with rationale and risks, not raw lists.",
     ],
+    noindex: false,
     faq: [
       {
-        question: "How do you find distributors in Japan?",
+        question: "What is the difference between a distributor, sales agent, and reseller in Japan?",
         answer:
-          "We use a combination of trade show contacts, industry association directories, and our established network. Candidates are screened for category fit, coverage, and financial stability before any introduction.",
+          "A distributor buys and resells your product, assuming inventory risk and coverage obligations by territory or channel. A sales agent works on commission without holding stock, providing relationship access to buyers with less capital commitment. A reseller operates opportunistically with limited coverage commitment — terms vary widely and are often appropriate for e-commerce or niche channels. The right choice depends on your product category, volume expectations, and after-sales requirements.",
       },
       {
-        question: "What information do I need to provide to start the search?",
+        question: "How do you find a distributor in Japan without wasting months?",
         answer:
-          "Product specification, target retail or B2B channel, pricing range, MOQ, and any certification credentials. The more specific your brief, the faster the match.",
+          "Start with a clear category-fit brief: product type, target channel, price corridor, and MOQ. We use structured outreach to a pre-screened network rather than cold mass contact. A defined screening checklist — covering coverage, capability, and channel conflicts — is applied before any introduction is made. This reduces the time from brief to qualified shortlist to four to eight weeks.",
       },
       {
-        question: "How many distributor candidates will I receive?",
+        question: "How do you screen for reliability and after-sales support?",
         answer:
-          "We typically present 3–5 qualified candidates. Volume is not the goal; fit and willingness to engage are.",
+          "We check category fit and portfolio overlap, geographic coverage, sales motion and account type, warehousing and logistics capacity, compliance handling experience, after-sales support capability, and potential conflicts of interest. After-sales capability — warranty handling, returns, and customer service SLA — is a core qualification requirement, not a bonus.",
       },
       {
-        question: "What if no suitable distributor is found?",
+        question: "How many candidates do you usually shortlist?",
         answer:
-          "We provide a market feedback report explaining the gaps — whether pricing, certification, or category timing — so you can make an informed decision on next steps.",
+          "We typically present three to five qualified candidates. Volume is not the objective — fit, willingness to engage, and capability alignment are. A smaller, well-qualified shortlist is more actionable than a long raw list. Each candidate entry includes individual rationale and risk notes.",
       },
       {
-        question: "Do you handle contract negotiation?",
+        question: "What information do you need to start a Japan distributor search?",
         answer:
-          "We facilitate introductions and support commercial discussion framing. Legal contract drafting should involve a qualified trade lawyer.",
+          "Product specification, target channel (retail, foodservice, or industrial), price corridor, MOQ, logistics capability, certification or labelling constraints, and your internal response timeline. A one-page product brief in English is sufficient to start. The more specific your brief, the faster the category-fit screening.",
+      },
+      {
+        question: "How do you choose the right distributor category in Japan?",
+        answer:
+          "Distributor categories in Japan are structured around how product moves through the market — specialty import distributors, wholesalers, trading companies, regional distributors, OEM or industrial distributors, and e-commerce-focused resellers each serve different channels and geographies. Category mismatch between your product and a distributor's channel model is one of the most common early-stage failures.",
+      },
+      {
+        question: "What is a realistic timeline from outreach to first deals?",
+        answer:
+          "From a confirmed brief to a qualified shortlist typically takes four to eight weeks. First commercial discussions take an additional four to twelve weeks depending on category and partner decision cycle. A realistic path to a first purchase order is three to six months from brief to contract. Timelines extend when brief clarity is low or when product certification is incomplete.",
+      },
+      {
+        question: "What are common failure patterns when selecting Japan partners?",
+        answer:
+          "Selecting on brand name rather than category fit; not defining coverage expectations upfront; skipping after-sales capability checks; failing to follow up after initial contact; and agreeing to exclusive arrangements before validating commitment. Most failures are preventable with structured qualification before the first outreach.",
       },
     ],
   },
@@ -537,5 +568,5 @@ export const SITE_PRESETS: Record<string, SiteConfig> = {
 // ============================================================
 // ACTIVE SITE — change only this line per sub-site repo
 // ============================================================
-export const ACTIVE_SITE_KEY = "export-to-japan";
+export const ACTIVE_SITE_KEY = "find-japan-distributor";
 export const siteConfig: SiteConfig = SITE_PRESETS[ACTIVE_SITE_KEY];

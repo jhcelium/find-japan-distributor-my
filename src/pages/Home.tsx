@@ -1,122 +1,148 @@
 import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
 import SEOHead from "../components/SEOHead";
 import CTA from "../components/CTA";
+import FAQList from "../components/FAQList";
 import { siteConfig } from "../content/site.config";
 import { pageTitle } from "../lib/seo";
 
-// Step 7 — FAQPage JSON-LD (homepage-specific, not from config FAQ)
+// Homepage-specific FAQPage JSON-LD (3 conversion FAQs)
 const HOME_FAQ_JSONLD = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
   mainEntity: [
     {
       "@type": "Question",
-      name: "How to export from Malaysia to Japan?",
+      name: "What is the difference between a distributor, sales agent, and reseller in Japan?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Exporting to Japan requires regulatory mapping, documentation compliance, distributor alignment and pre-shipment validation.",
+        text: "A distributor buys and resells your product, assuming inventory risk and coverage obligations. A sales agent works on commission without holding stock. A reseller operates opportunistically with limited coverage commitment.",
       },
     },
     {
       "@type": "Question",
-      name: "What are Japan import requirements for Malaysian products?",
+      name: "What information do you need to start a Japan distributor search?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Requirements vary by sector but include customs documentation, labelling compliance and adherence to Japan's import regulations.",
+        text: "Product specification, target channel, price corridor, MOQ, logistics capability, certification constraints, and your internal response timeline. A one-page product brief in English is sufficient to start.",
       },
     },
     {
       "@type": "Question",
-      name: "How does Malaysia–Japan FTA reduce tariffs?",
+      name: "What is a realistic timeline from outreach to first deals?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Tariff reductions apply when exporters meet rules of origin requirements and submit valid certification documentation.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "What compliance is required for Japan supermarkets?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Supermarket entry requires product labelling compliance, distributor capability validation and documentation verification.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "How to assess export readiness for Japan market?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Export readiness assessment evaluates regulatory alignment, operational capacity and channel preparedness before shipment.",
+        text: "From a confirmed brief to a qualified shortlist typically takes four to eight weeks. First commercial discussions take an additional four to twelve weeks. A realistic path to first purchase order is three to six months from brief to contract.",
       },
     },
   ],
 };
 
-const HOW_WE_WORK = [
+// C) Diagnostic Block
+const READINESS_CHECKLIST = [
+  "Clear product category and HS code / market segment",
+  "Target channels identified (retail / foodservice / industrial)",
+  "Price corridor and MOQ confirmed",
+  "Certification and label constraints documented",
+  "Logistics capability confirmed (minimum order, lead time)",
+  "After-sales and service expectations defined",
+  "One-page product brief available (English acceptable)",
+  "Internal response SLA set (reply within N business days)",
+];
+
+// D) Method Block
+const METHOD_STEPS = [
   {
     step: "1",
-    title: "Initial Assessment",
-    body: "We review your product, pricing, certifications, and target channel to determine Japan market fit before any commitment.",
+    title: "Define partner type and category fit",
+    body: "We confirm whether a distributor, sales agent, or reseller structure suits your product and channel model. Category fit is verified before any name is shortlisted.",
   },
   {
     step: "2",
-    title: "Market Mapping",
-    body: "We identify the relevant distributor categories, regulatory requirements, and trade channels specific to your product.",
+    title: "Map distributor categories and coverage logic",
+    body: "We identify which distributor categories cover your target channel and geography. Coverage obligations and exclusivity implications are assessed at this stage.",
   },
   {
     step: "3",
-    title: "Distributor Identification",
-    body: "We shortlist and approach qualified Japan-side partners using our established network and direct outreach.",
+    title: "Outreach with a structured brief and meeting setup",
+    body: "We approach candidates using a targeted brief — not bulk emailing. Japan channel partner search is handled directly with named contacts and defined response tracking.",
   },
   {
     step: "4",
-    title: "Introduction & Meeting Support",
-    body: "We facilitate introductory meetings, prepare briefing materials, and provide bilingual support during discussions.",
-  },
-  {
-    step: "5",
-    title: "Follow-up Coordination",
-    body: "We maintain contact with distributors after initial meetings and coordinate next steps on your behalf.",
+    title: "Follow-up cadence and decision memo",
+    body: "We manage follow-up timing and maintain next-step control to reduce drop-off. You receive a decision memo with shortlist rationale, risks, and a recommended two-to-four week action plan.",
   },
 ];
 
-const HOME_FAQS = [
+// E) Partner Types
+const PARTNER_TYPES = [
   {
-    question: "How to export from Malaysia to Japan?",
-    answer:
-      "Exporting to Japan requires regulatory mapping, product documentation compliance, distributor qualification, and pre-shipment validation. Each step must be sequenced to avoid delays at customs or rejection at the distributor level.",
+    type: "Distributor",
+    description:
+      "Buys and resells your product. Assumes inventory risk. Typically has coverage obligations by territory or channel.",
   },
   {
-    question: "What are Japan import requirements for Malaysian products?",
-    answer:
-      "Requirements vary by product category. Core documentation includes a commercial invoice, packing list, certificate of origin, and any sector-specific certification such as food safety or halal documentation. Japanese labelling standards apply at point of sale.",
+    type: "Sales Agent",
+    description:
+      "Commission-based. Does not hold inventory. Provides relationship access to buyers. Less capital commitment from partner side.",
   },
   {
-    question: "How does Malaysia–Japan FTA reduce tariffs?",
-    answer:
-      "The Malaysia–Japan EPA provides preferential tariff rates for qualifying goods. Exporters must hold a valid Certificate of Origin (Form MJEPA) issued by MITI or an approved body, and the goods must satisfy rules of origin criteria.",
+    type: "Reseller",
+    description:
+      "Opportunistic. Limited coverage commitment. Terms vary widely. Often appropriate for e-commerce or niche channels.",
   },
-  {
-    question: "What compliance is required for Japan supermarkets?",
-    answer:
-      "Supermarket channel entry requires Japanese-language labelling compliant with the Food Labelling Standards Act, distributor capability to handle import logistics, and often category buyer approval before listing.",
-  },
-  {
-    question: "How to assess export readiness for Japan market?",
-    answer:
-      "An export readiness assessment evaluates regulatory alignment, pricing viability at Japan retail or wholesale levels, certification gaps, labelling compliance, and whether the company has the operational capacity to support a Japan distributor relationship.",
-  },
+];
+
+// F) Distributor Categories
+const DISTRIBUTOR_CATEGORIES = [
+  "Specialty import distributors",
+  "Wholesalers",
+  "Trading companies",
+  "Regional distributors",
+  "OEM / industrial distributors",
+  "E-commerce focused resellers",
+];
+
+// G) Reliability Checks
+const RELIABILITY_CHECKS = [
+  "Category fit and portfolio overlap (does your product fit their current lines?)",
+  "Geographic coverage (prefectures and channels they actively serve)",
+  "Sales motion and account type (do they sell to your target channel?)",
+  "Warehousing and logistics capacity (temperature, volume, lead time)",
+  "Compliance handling (import paperwork, labelling, customs experience)",
+  "After-sales support capacity (warranty, returns, customer service SLA)",
+  "Conflict of interest (exclusive competing lines in the same category)",
+];
+
+// H) Outputs
+const OUTPUTS = [
+  "3–5 partner shortlist with individual rationale",
+  "Partner-type recommendation (distributor vs agent vs reseller)",
+  "Outreach log with contact status and response notes",
+  "Meeting brief pack (product summary, commercial terms, key questions)",
+  "Risks and red flags summary per candidate",
+  "Next-step action plan (two-to-four week roadmap)",
+];
+
+// J) 3 FAQ keys for homepage preview
+const FAQ_PREVIEW_QUESTIONS = [
+  "What is the difference between a distributor, sales agent, and reseller in Japan?",
+  "What information do you need to start a Japan distributor search?",
+  "What is a realistic timeline from outreach to first deals?",
 ];
 
 export default function Home() {
   const title = pageTitle();
-  const description = `${siteConfig.brandLine} ${siteConfig.primaryIntent}`;
+  const description = `${siteConfig.brandLine} — ${siteConfig.primaryIntent}`;
+
+  const faqPreview = siteConfig.faq.filter((f) =>
+    FAQ_PREVIEW_QUESTIONS.includes(f.question)
+  );
 
   return (
     <>
       <SEOHead path="/" title={title} description={description} />
 
-      {/* Step 7 — inject FAQPage JSON-LD for homepage FAQs */}
       <Helmet>
         <script type="application/ld+json">
           {JSON.stringify(HOME_FAQ_JSONLD)}
@@ -125,27 +151,20 @@ export default function Home() {
 
       <main className="max-w-5xl mx-auto px-6 py-16 space-y-20">
 
-        {/* Hero — Steps 2 & 3 */}
+        {/* A) Hero — tool positioning */}
         <section className="max-w-2xl">
           <p className="text-xs font-semibold tracking-widest text-neutral-400 uppercase mb-4">
             {siteConfig.domain}
           </p>
-
-          {/* Step 2 — updated H1, primary keyword instance 1 */}
           <h1 className="text-3xl font-semibold text-neutral-900 leading-tight mb-4">
-            Export from Malaysia to Japan — Structural Market Entry Advisory
+            Find a Japan Distributor
           </h1>
-
-          {/* Step 3 — hero paragraph, primary keyword instance 2 */}
           <p className="text-sm text-neutral-600 leading-relaxed mb-8">
-            Export from Malaysia to Japan requires regulatory alignment, tariff
-            optimisation under the Malaysia–Japan FTA, structured distributor
-            qualification, product labelling compliance, and disciplined market
-            entry sequencing. This page outlines the execution framework
-            Malaysian companies must follow before shipment and channel
-            expansion.
+            NeoiDigital helps Malaysia exporters{" "}
+            <strong>find distributor in japan</strong> using a structured
+            qualification workflow — partner type, coverage fit, and follow-up
+            discipline.
           </p>
-
           <div className="flex flex-wrap gap-3">
             <CTA />
             <a
@@ -159,25 +178,19 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Step 4 — What This Page Covers */}
+        {/* B) Standard Answer Block — "What this page solves" */}
         <section className="border-t border-gray-200 pt-10">
-          <h2 className="text-2xl font-semibold tracking-tight text-neutral-900">
-            What This Page Covers
+          <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 mb-6">
+            What This Distributor Search Page Is For
           </h2>
-          <p className="mt-4 text-gray-600 max-w-3xl text-sm leading-relaxed">
-            This page provides a structural overview of exporting from Malaysia
-            to Japan, including regulatory requirements, FTA utilisation,
-            compliance strategy, distributor entry models, and export readiness
-            evaluation.
-          </p>
-          <ul className="mt-8 space-y-3 text-gray-700 text-sm leading-relaxed">
+          <ul className="space-y-3 text-sm text-gray-700 leading-relaxed max-w-3xl">
             {[
-              "Japan import regulations applicable to Malaysian exporters",
-              "Product compliance and labelling requirements for the Japan market",
-              "Malaysia–Japan FTA tariff optimisation strategy",
-              "Halal and supermarket channel entry considerations",
-              "Step-by-step export execution roadmap",
-              "Structural export readiness assessment framework",
+              "This page is for Malaysia SMEs and exporters who need to identify and qualify a Japan-side distribution partner.",
+              "\"Search\" here means a qualification process — defining partner type, screening candidates against fit criteria, conducting structured outreach, and managing follow-up.",
+              "The output is a shortlist of 3–5 candidates with rationale, not a bulk directory result.",
+              "This service is relevant when you have a product brief, a target channel, and are ready to engage Japan partners within 60–90 days.",
+              "This page does not cover market research, regulatory compliance, or product adaptation — those are separate engagements.",
+              "If you do not yet have a confirmed product category or pricing structure, use the readiness check below before starting a search.",
             ].map((item) => (
               <li key={item} className="flex items-start gap-2">
                 <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 bg-neutral-900" />
@@ -187,50 +200,37 @@ export default function Home() {
           </ul>
         </section>
 
-        {/* Site Identity / Positioning */}
+        {/* C) Diagnostic Block — "Are you ready to approach Japan partners?" */}
         <section className="border-t border-neutral-200 pt-10">
-          <h2 className="text-xs font-semibold tracking-widest text-neutral-400 uppercase mb-6">
-            Site Focus
+          <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 mb-2">
+            Readiness Check (5 Minutes)
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="border-l-2 border-neutral-900 pl-4">
-              <p className="text-xs font-semibold text-neutral-500 uppercase tracking-wide mb-1">
-                Primary Intent
-              </p>
-              <p className="text-sm text-neutral-800 leading-relaxed">
-                {siteConfig.primaryIntent}
-              </p>
-            </div>
-            <div className="border-l-2 border-neutral-300 pl-4">
-              <p className="text-xs font-semibold text-neutral-500 uppercase tracking-wide mb-1">
-                Who We Serve
-              </p>
-              <p className="text-sm text-neutral-600 leading-relaxed">
-                Malaysian and ASEAN-based SMEs and exporters looking to enter
-                the Japan B2B market.
-              </p>
-            </div>
-            {siteConfig.localPresence && (
-              <div className="border-l-2 border-neutral-300 pl-4">
-                <p className="text-xs font-semibold text-neutral-500 uppercase tracking-wide mb-1">
-                  Where We Operate
-                </p>
-                <p className="text-sm text-neutral-600 leading-relaxed">
-                  Japan-based coordinator in Osaka, Japan — supporting
-                  meetings, distributor visits, and on-the-ground follow-up.
-                </p>
-              </div>
-            )}
-          </div>
+          <p className="text-sm text-neutral-500 mb-6">
+            Confirm these before requesting a distributor search.
+          </p>
+          <ul className="space-y-2">
+            {READINESS_CHECKLIST.map((item) => (
+              <li
+                key={item}
+                className="flex items-start gap-3 text-sm text-neutral-700"
+              >
+                <span className="mt-0.5 flex-shrink-0 h-4 w-4 border border-neutral-400" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+          <p className="text-xs text-neutral-500 mt-4">
+            If most items are confirmed, you are ready to proceed.
+          </p>
         </section>
 
-        {/* Step 5 — mid-page H2 with primary keyword (instance 3) + How We Work */}
+        {/* D) Method Block — "How we find and qualify partners" */}
         <section className="border-t border-neutral-200 pt-10">
           <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 mb-8">
-            Step-by-Step Framework to Export from Malaysia to Japan
+            How We Find and Qualify Japan Partners
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
-            {HOW_WE_WORK.map((item) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {METHOD_STEPS.map((item) => (
               <div key={item.step}>
                 <p className="text-xs font-semibold text-neutral-400 mb-2">
                   Step {item.step}
@@ -238,12 +238,102 @@ export default function Home() {
                 <p className="text-sm font-semibold text-neutral-900 mb-1">
                   {item.title}
                 </p>
-                <p className="text-xs text-neutral-500 leading-relaxed">
+                <p className="text-sm text-neutral-600 leading-relaxed">
                   {item.body}
                 </p>
               </div>
             ))}
           </div>
+        </section>
+
+        {/* E) Partner Types Block */}
+        <section className="border-t border-neutral-200 pt-10">
+          <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 mb-6">
+            Distributor vs Sales Agent vs Reseller (Japan)
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            {PARTNER_TYPES.map((item) => (
+              <div
+                key={item.type}
+                className="border-l-2 border-neutral-900 pl-4"
+              >
+                <p className="text-sm font-semibold text-neutral-900 mb-1">
+                  {item.type}
+                </p>
+                <p className="text-sm text-neutral-600 leading-relaxed">
+                  {item.description}
+                </p>
+              </div>
+            ))}
+          </div>
+          <p className="text-sm text-neutral-700 border-l-2 border-neutral-300 pl-4">
+            Choosing the wrong partner type is the fastest way to stall.
+          </p>
+        </section>
+
+        {/* F) Category Fit Block */}
+        <section className="border-t border-neutral-200 pt-10">
+          <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 mb-4">
+            Choosing the Right Distributor Category
+          </h2>
+          <p className="text-sm text-neutral-600 leading-relaxed mb-6 max-w-3xl">
+            To choose the right distributor category in japan, you need to map
+            how your product reaches its end buyer — whether through specialty
+            channels, regional wholesale, or direct import. Category mismatch is
+            one of the most common early-stage failures.
+          </p>
+          <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {DISTRIBUTOR_CATEGORIES.map((cat) => (
+              <li
+                key={cat}
+                className="flex items-start gap-2 text-sm text-neutral-700"
+              >
+                <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 bg-neutral-900" />
+                <span>{cat}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        {/* G) Reliability Block */}
+        <section className="border-t border-neutral-200 pt-10">
+          <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 mb-4">
+            Reliability Screening (What We Check)
+          </h2>
+          <p className="text-sm text-neutral-600 leading-relaxed mb-6 max-w-3xl">
+            A japan distributor with after sales support is a core qualification
+            requirement, not a bonus. The following checks are applied before any
+            candidate is presented.
+          </p>
+          <ul className="space-y-3">
+            {RELIABILITY_CHECKS.map((check) => (
+              <li
+                key={check}
+                className="flex items-start gap-2 text-sm text-neutral-700"
+              >
+                <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 bg-neutral-900" />
+                <span>{check}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        {/* H) Output Block */}
+        <section className="border-t border-neutral-200 pt-10">
+          <h2 className="text-2xl font-semibold tracking-tight text-neutral-900 mb-6">
+            What You Receive
+          </h2>
+          <ul className="space-y-3">
+            {OUTPUTS.map((output) => (
+              <li
+                key={output}
+                className="flex items-start gap-2 text-sm text-neutral-700"
+              >
+                <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 bg-neutral-900" />
+                <span>{output}</span>
+              </li>
+            ))}
+          </ul>
         </section>
 
         {/* Social Proof */}
@@ -261,35 +351,79 @@ export default function Home() {
           </ul>
         </section>
 
-        {/* Step 6 — Visible FAQ block with 5 targeted questions */}
+        {/* I) Coverage Map — de-emphasised, long-tail slice(0,6) */}
+        <section className="border-t border-neutral-200 pt-10">
+          <h2 className="text-xs font-semibold tracking-widest text-neutral-400 uppercase mb-2">
+            Coverage Map
+          </h2>
+          <p className="text-xs text-neutral-400 mb-6">
+            Common search topics this page addresses.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+              <h3 className="text-xs font-semibold tracking-wide text-neutral-500 uppercase mb-3">
+                Main Keywords
+              </h3>
+              <ul className="space-y-2">
+                {siteConfig.mainKeywords.map((kw) => (
+                  <li key={kw} className="text-sm text-neutral-800 font-medium">
+                    {kw}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-xs font-semibold tracking-wide text-neutral-500 uppercase mb-3">
+                Supporting Keywords
+              </h3>
+              <ul className="space-y-1">
+                {siteConfig.supportingKeywords.map((kw) => (
+                  <li key={kw} className="text-sm text-neutral-600">
+                    {kw}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-xs font-semibold tracking-wide text-neutral-500 uppercase mb-3">
+                Long-tail Topics
+              </h3>
+              <ul className="space-y-1">
+                {siteConfig.longTailKeywords.slice(0, 6).map((kw) => (
+                  <li key={kw} className="text-sm text-neutral-500">
+                    {kw}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        {/* J) FAQ Preview — 3 conversion FAQs + link to /faq */}
         <section className="border-t border-neutral-200 pt-10">
           <h2 className="text-xs font-semibold tracking-widest text-neutral-400 uppercase mb-6">
             Common Questions
           </h2>
-          <dl className="divide-y divide-neutral-200">
-            {HOME_FAQS.map((item) => (
-              <div key={item.question} className="py-6">
-                <dt className="text-sm font-semibold text-neutral-900 mb-2">
-                  {item.question}
-                </dt>
-                <dd className="text-sm text-neutral-600 leading-relaxed">
-                  {item.answer}
-                </dd>
-              </div>
-            ))}
-          </dl>
+          <FAQList items={faqPreview} />
+          <div className="mt-6">
+            <Link
+              to="/faq"
+              className="text-sm text-neutral-700 underline hover:text-neutral-900"
+            >
+              View all FAQ →
+            </Link>
+          </div>
         </section>
 
-        {/* Bottom CTA */}
+        {/* K) Final CTA */}
         <section className="border-t border-neutral-200 pt-10">
           <div className="max-w-xl">
             <h2 className="text-xl font-semibold text-neutral-900 mb-3">
-              Ready to evaluate your Japan market options?
+              Start Your Distributor Search
             </h2>
             <p className="text-sm text-neutral-500 mb-6 leading-relaxed">
-              We work with Malaysian SMEs at different stages of Japan market
-              readiness. The first step is a direct conversation about your
-              product, pricing, and target channel.
+              Share your product category, target channel, and constraints. We
+              will confirm fit and the next steps.
             </p>
             <CTA />
           </div>
