@@ -6,6 +6,9 @@ import CTA from "../components/CTA";
 import { siteConfig } from "../content/site.config";
 import { pageTitle, canonicalUrl } from "../lib/seo";
 
+const DATE_PUBLISHED = "2026-03-02";
+const DATE_MODIFIED = "2026-03-16";
+
 export default function FAQ() {
   const title = pageTitle("Japan Distributor Search FAQ");
   const description =
@@ -22,7 +25,14 @@ export default function FAQ() {
 
   return (
     <>
-      <SEOHead path="/faq" title={title} description={description} isFaq={true} />
+      <SEOHead
+        path="/faq"
+        title={title}
+        description={description}
+        isFaq={true}
+        datePublished={DATE_PUBLISHED}
+        dateModified={DATE_MODIFIED}
+      />
 
       <Helmet>
         <script type="application/ld+json">

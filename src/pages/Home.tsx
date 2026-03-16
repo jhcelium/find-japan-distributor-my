@@ -4,7 +4,10 @@ import SEOHead from "../components/SEOHead";
 import CTA from "../components/CTA";
 import FAQList from "../components/FAQList";
 import { siteConfig } from "../content/site.config";
-import { pageTitle } from "../lib/seo";
+import { pageTitle, canonicalUrl } from "../lib/seo";
+
+const DATE_PUBLISHED = "2026-03-02";
+const DATE_MODIFIED = "2026-03-16";
 
 // Service structured data — machine-readable service declaration
 const SERVICE_JSONLD = {
@@ -31,34 +34,89 @@ const SERVICE_JSONLD = {
   },
 };
 
-// Homepage-specific FAQPage JSON-LD (3 conversion FAQs)
+// Homepage FAQPage JSON-LD — 3 conversion FAQs, full answers from config
+const HOME_FAQ_PREVIEW_KEYS = [
+  "What is the difference between a distributor, sales agent, and reseller in Japan?",
+  "What information do you need to start a Japan distributor search?",
+  "What is a realistic timeline from outreach to first deals?",
+];
 const HOME_FAQ_JSONLD = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  mainEntity: [
-    {
+  mainEntity: siteConfig.faq
+    .filter((f) => HOME_FAQ_PREVIEW_KEYS.includes(f.question))
+    .map((f) => ({
       "@type": "Question",
-      name: "What is the difference between a distributor, sales agent, and reseller in Japan?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "A distributor buys and resells your product, assuming inventory risk and coverage obligations. A sales agent works on commission without holding stock. A reseller operates opportunistically with limited coverage commitment.",
-      },
+      name: f.question,
+      acceptedAnswer: { "@type": "Answer", text: f.answer },
+    })),
+  speakable: {
+    "@type": "SpeakableSpecification",
+    cssSelector: ["h1", "main > section:first-child > p"],
+  },
+};
+
+// HowTo schema — maps to Section D method steps
+const HOWTO_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "How to Find and Qualify a Japan Distributor",
+  description:
+    "A four-step structured process to identify, screen, and qualify Japan-side distributors for Malaysia exporters.",
+  step: [
+    {
+      "@type": "HowToStep",
+      position: 1,
+      name: "Define partner type and category fit",
+      text: "Confirm whether a distributor, sales agent, or reseller structure suits your product and channel model. Category fit is verified before any name is shortlisted.",
     },
     {
-      "@type": "Question",
-      name: "What information do you need to start a Japan distributor search?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Product specification, target channel, price corridor, MOQ, logistics capability, certification constraints, and your internal response timeline. A one-page product brief in English is sufficient to start.",
-      },
+      "@type": "HowToStep",
+      position: 2,
+      name: "Map distributor categories and coverage logic",
+      text: "Identify which distributor categories cover your target channel and geography. Coverage obligations and exclusivity implications are assessed at this stage.",
     },
     {
-      "@type": "Question",
-      name: "What is a realistic timeline from outreach to first deals?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "From a confirmed brief to a qualified shortlist typically takes four to eight weeks. First commercial discussions take an additional four to twelve weeks. A realistic path to first purchase order is three to six months from brief to contract.",
-      },
+      "@type": "HowToStep",
+      position: 3,
+      name: "Outreach with a structured brief and meeting setup",
+      text: "Approach candidates using a targeted brief with named contacts and defined response tracking, not bulk emailing.",
+    },
+    {
+      "@type": "HowToStep",
+      position: 4,
+      name: "Follow-up cadence and decision memo",
+      text: "Manage follow-up timing and maintain next-step control. Deliver a decision memo with shortlist rationale, risks, and a recommended action plan.",
+    },
+  ],
+};
+
+// DefinedTermSet schema — partner type definitions (Section E)
+const DEFINED_TERMS_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "DefinedTermSet",
+  name: "Japan Distribution Partner Types",
+  description:
+    "Key partner types used in Japan B2B distribution: distributor, sales agent, and reseller.",
+  url: canonicalUrl("/"),
+  hasDefinedTerm: [
+    {
+      "@type": "DefinedTerm",
+      name: "Distributor (Japan)",
+      description:
+        "Buys and resells your product, assuming inventory risk and coverage obligations by territory or channel.",
+    },
+    {
+      "@type": "DefinedTerm",
+      name: "Sales Agent (Japan)",
+      description:
+        "Commission-based intermediary that does not hold inventory but provides relationship access to buyers.",
+    },
+    {
+      "@type": "DefinedTerm",
+      name: "Reseller (Japan)",
+      description:
+        "Opportunistic partner with limited coverage commitment, often appropriate for e-commerce or niche channels.",
     },
   ],
 };
@@ -149,12 +207,8 @@ const OUTPUTS = [
   "Next-step action plan (two-to-four week roadmap)",
 ];
 
-// J) 3 FAQ keys for homepage preview
-const FAQ_PREVIEW_QUESTIONS = [
-  "What is the difference between a distributor, sales agent, and reseller in Japan?",
-  "What information do you need to start a Japan distributor search?",
-  "What is a realistic timeline from outreach to first deals?",
-];
+// J) 3 FAQ keys for homepage preview — reuses JSON-LD key list
+const FAQ_PREVIEW_QUESTIONS = HOME_FAQ_PREVIEW_KEYS;
 
 export default function Home() {
   const title = pageTitle("Find a Japan Distributor");
@@ -167,7 +221,13 @@ export default function Home() {
 
   return (
     <>
-      <SEOHead path="/" title={title} description={description} />
+      <SEOHead
+        path="/"
+        title={title}
+        description={description}
+        datePublished={DATE_PUBLISHED}
+        dateModified={DATE_MODIFIED}
+      />
 
       <Helmet>
         <script type="application/ld+json">
@@ -175,6 +235,12 @@ export default function Home() {
         </script>
         <script type="application/ld+json">
           {JSON.stringify(HOME_FAQ_JSONLD)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(HOWTO_JSONLD)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(DEFINED_TERMS_JSONLD)}
         </script>
       </Helmet>
 
@@ -387,6 +453,39 @@ export default function Home() {
               </li>
             ))}
           </ul>
+        </section>
+
+        {/* Regulatory Context — GEO / E-E-A-T */}
+        <section className="border-t border-neutral-200 pt-10">
+          <h2 className="text-xs font-semibold tracking-widest text-neutral-400 uppercase mb-4">
+            Regulatory Context
+          </h2>
+          <div className="max-w-3xl space-y-3 text-sm text-neutral-600 leading-relaxed">
+            <p>
+              Japan's distribution and import framework is overseen by the{" "}
+              <strong className="text-neutral-800">
+                Ministry of Economy, Trade and Industry (METI)
+              </strong>{" "}
+              for commercial regulations and business registration, and the{" "}
+              <strong className="text-neutral-800">
+                Japan External Trade Organization (JETRO)
+              </strong>{" "}
+              for trade promotion and foreign business support.
+            </p>
+            <p>
+              Product-specific compliance — food safety, labelling, cosmetics,
+              and industrial standards — falls under the Consumer Affairs Agency
+              (CAA) and relevant ministry bodies. A distributor's compliance
+              handling capability is part of our screening criteria because
+              import documentation, labelling, and customs clearance are the
+              distributor's operational responsibility in most partner
+              structures.
+            </p>
+            <p className="text-xs text-neutral-400">
+              This section provides context, not legal advice. Consult qualified
+              trade counsel for binding regulatory interpretation.
+            </p>
+          </div>
         </section>
 
         {/* I) Coverage Map — de-emphasised, long-tail slice(0,6) */}

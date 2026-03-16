@@ -25,6 +25,9 @@ const DELIVERABLES = [
   },
 ];
 
+const DATE_PUBLISHED = "2026-03-02";
+const DATE_MODIFIED = "2026-03-16";
+
 export default function About() {
   const title = pageTitle("Japan Distributor Search Support");
   const description =
@@ -41,7 +44,13 @@ export default function About() {
 
   return (
     <>
-      <SEOHead path="/about" title={title} description={description} />
+      <SEOHead
+        path="/about"
+        title={title}
+        description={description}
+        datePublished={DATE_PUBLISHED}
+        dateModified={DATE_MODIFIED}
+      />
 
       <Helmet>
         <script type="application/ld+json">
