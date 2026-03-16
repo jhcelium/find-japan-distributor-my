@@ -6,6 +6,31 @@ import FAQList from "../components/FAQList";
 import { siteConfig } from "../content/site.config";
 import { pageTitle } from "../lib/seo";
 
+// Service structured data — machine-readable service declaration
+const SERVICE_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: "Japan Distributor Search Service",
+  description:
+    "Structured distributor identification, category fit screening, and qualification for Malaysia exporters entering Japan.",
+  provider: {
+    "@type": "Organization",
+    name: "NeoiDigital",
+    legalName: "ネオインスパイア株式会社",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Osaka",
+      addressCountry: "JP",
+    },
+  },
+  areaServed: { "@type": "Country", name: "Japan" },
+  serviceType: "B2B Distributor Search and Qualification",
+  audience: {
+    "@type": "Audience",
+    audienceType: "Malaysia exporters and SMEs seeking Japan distribution partners",
+  },
+};
+
 // Homepage-specific FAQPage JSON-LD (3 conversion FAQs)
 const HOME_FAQ_JSONLD = {
   "@context": "https://schema.org",
@@ -132,8 +157,9 @@ const FAQ_PREVIEW_QUESTIONS = [
 ];
 
 export default function Home() {
-  const title = pageTitle();
-  const description = `${siteConfig.brandLine} — ${siteConfig.primaryIntent}`;
+  const title = pageTitle("Find a Japan Distributor");
+  const description =
+    "Find distributor in japan using a structured qualification workflow — partner type, category fit, outreach, and shortlist for Malaysia exporters. Japan-based in Osaka.";
 
   const faqPreview = siteConfig.faq.filter((f) =>
     FAQ_PREVIEW_QUESTIONS.includes(f.question)
@@ -144,6 +170,9 @@ export default function Home() {
       <SEOHead path="/" title={title} description={description} />
 
       <Helmet>
+        <script type="application/ld+json">
+          {JSON.stringify(SERVICE_JSONLD)}
+        </script>
         <script type="application/ld+json">
           {JSON.stringify(HOME_FAQ_JSONLD)}
         </script>
@@ -176,6 +205,11 @@ export default function Home() {
               Japan Market Hub →
             </a>
           </div>
+          <p className="text-xs text-neutral-400 mt-4">
+            <Link to="/about" className="underline hover:text-neutral-700">
+              About our approach →
+            </Link>
+          </p>
         </section>
 
         {/* B) Standard Answer Block — "What this page solves" */}
@@ -188,6 +222,7 @@ export default function Home() {
               "This page is for Malaysia SMEs and exporters who need to identify and qualify a Japan-side distribution partner.",
               "\"Search\" here means a qualification process — defining partner type, screening candidates against fit criteria, conducting structured outreach, and managing follow-up.",
               "The output is a shortlist of 3–5 candidates with rationale, not a bulk directory result.",
+              "Not all Japan distributors will accept new foreign products — category fit, MOQ commitment, and distributor willingness must be verified before any outreach begins.",
               "This service is relevant when you have a product brief, a target channel, and are ready to engage Japan partners within 60–90 days.",
               "This page does not cover market research, regulatory compliance, or product adaptation — those are separate engagements.",
               "If you do not yet have a confirmed product category or pricing structure, use the readiness check below before starting a search.",
@@ -267,7 +302,10 @@ export default function Home() {
             ))}
           </div>
           <p className="text-sm text-neutral-700 border-l-2 border-neutral-300 pl-4">
-            Choosing the wrong partner type is the fastest way to stall.
+            Choosing the wrong partner type is the fastest way to stall. For
+            long-term expansion, prioritise partners with clear coverage
+            commitment, after-sales capability, and willingness to invest in the
+            relationship.
           </p>
         </section>
 
