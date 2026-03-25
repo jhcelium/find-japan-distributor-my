@@ -122,3 +122,22 @@ export function faqPageJsonLd() {
     speakable: SPEAKABLE_SPEC,
   };
 }
+
+/** JSON-LD: FAQPage — single Q&A (answer asset page) */
+export function faqSingleQuestionJsonLd(question: string, answer: string) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: answer,
+        },
+      },
+    ],
+    speakable: SPEAKABLE_SPEC,
+  };
+}

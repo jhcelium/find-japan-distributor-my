@@ -31,10 +31,9 @@ if (keyIndex === -1) {
   process.exit(1);
 }
 
-// Slice from the key to a reasonable preset block end
+// Slice from the key through a large window (preset + faqAnswerSlugs + faq body)
 const blockStart = keyIndex;
-// Find the matching closing brace for this preset (heuristic: next top-level "," + newline + 2 spaces)
-const rawBlock = src.slice(blockStart, blockStart + 4000);
+const rawBlock = src.slice(blockStart, blockStart + 120000);
 
 // ── Extract domain ────────────────────────────────────────────
 const domainMatch = rawBlock.match(/domain\s*:\s*["']([^"']+)["']/);
@@ -48,6 +47,24 @@ const noindex = noindexMatch ? noindexMatch[1] === "true" : false;
 // ── Build sitemap.xml ─────────────────────────────────────────
 const today = new Date().toISOString().split("T")[0];
 const baseUrl = "https://" + domain;
+
+const faqSlugLines = [];
+const slugsMatch = rawBlock.match(/faqAnswerSlugs:\s*\[([\s\S]*?)\]\s*,/);
+if (slugsMatch) {
+  var inner = slugsMatch[1];
+  var slugRe = /"([^"]+)"/g;
+  var sm;
+  while ((sm = slugRe.exec(inner)) !== null) {
+    faqSlugLines.push(
+      "  <url>",
+      "    <loc>" + baseUrl + "/faq/" + sm[1] + "</loc>",
+      "    <lastmod>" + today + "</lastmod>",
+      "    <changefreq>monthly</changefreq>",
+      "    <priority>0.7</priority>",
+      "  </url>"
+    );
+  }
+}
 
 const sitemap = [
   '<?xml version="1.0" encoding="UTF-8"?>',
@@ -67,12 +84,10 @@ const sitemap = [
   "  <url>",
   "    <loc>" + baseUrl + "/faq</loc>",
   "    <lastmod>" + today + "</lastmod>",
-  "    <changefreq>monthly</changefreq>",
-  "    <priority>0.8</priority>",
+  "    <changefreq>weekly</changefreq>",
+  "    <priority>0.85</priority>",
   "  </url>",
-  "</urlset>",
-  "",
-].join("\n");
+].concat(faqSlugLines).concat(["</urlset>", ""]).join("\n");
 
 // ── Build robots.txt ─────────────────────────────────────────
 const robots = noindex

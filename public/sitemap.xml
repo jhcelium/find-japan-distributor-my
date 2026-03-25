@@ -2,20 +2,68 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://find-japan-distributor.neoidigital.com/</loc>
-    <lastmod>2026-03-16</lastmod>
+    <lastmod>2026-03-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://find-japan-distributor.neoidigital.com/about</loc>
-    <lastmod>2026-03-16</lastmod>
+    <lastmod>2026-03-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://find-japan-distributor.neoidigital.com/faq</loc>
-    <lastmod>2026-03-16</lastmod>
+    <lastmod>2026-03-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://find-japan-distributor.neoidigital.com/faq/distributor-vs-sales-agent-vs-reseller-japan</loc>
+    <lastmod>2026-03-25</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://find-japan-distributor.neoidigital.com/faq/find-distributor-japan-without-wasting-months</loc>
+    <lastmod>2026-03-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://find-japan-distributor.neoidigital.com/faq/screen-reliability-after-sales-japan</loc>
+    <lastmod>2026-03-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://find-japan-distributor.neoidigital.com/faq/how-many-candidates-shortlist-japan</loc>
+    <lastmod>2026-03-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://find-japan-distributor.neoidigital.com/faq/information-needed-japan-distributor-search</loc>
+    <lastmod>2026-03-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://find-japan-distributor.neoidigital.com/faq/choose-right-distributor-category-japan</loc>
+    <lastmod>2026-03-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://find-japan-distributor.neoidigital.com/faq/timeline-outreach-first-deals-japan</loc>
+    <lastmod>2026-03-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://find-japan-distributor.neoidigital.com/faq/common-failure-patterns-japan-partners</loc>
+    <lastmod>2026-03-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>

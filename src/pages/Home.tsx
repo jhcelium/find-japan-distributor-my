@@ -271,7 +271,10 @@ export default function Home() {
               Japan Market Hub →
             </a>
           </div>
-          <p className="text-xs text-neutral-400 mt-4">
+          <p className="text-xs text-neutral-400 mt-4 flex flex-wrap gap-x-4 gap-y-1">
+            <Link to="/faq" className="underline hover:text-neutral-700">
+              Distributor FAQ answers →
+            </Link>
             <Link to="/about" className="underline hover:text-neutral-700">
               About our approach →
             </Link>

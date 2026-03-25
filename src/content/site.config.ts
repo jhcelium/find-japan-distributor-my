@@ -6,6 +6,15 @@
 export type FAQ = {
   question: string;
   answer: string;
+  /** URL segment for /faq/:slug answer pages */
+  slug?: string;
+  /** Short preview for the FAQ hub index */
+  preview?: string;
+  whyItMatters?: string;
+  evaluationCriteria?: string[];
+  commonMistakes?: string[];
+  /** Other FAQ slugs for cross-links */
+  relatedSlugs?: string[];
 };
 
 export type CTA = {
@@ -52,6 +61,8 @@ export type SiteConfig = {
   companyNote?: string;
   /** Set true to add Disallow: / in robots.txt and noindex,nofollow meta */
   noindex?: boolean;
+  /** Slugs listed in sitemap as /faq/{slug} — keep in sync with FAQ[].slug */
+  faqAnswerSlugs?: string[];
 };
 
 export const HUB_LINK = "https://www.japan-market.neoidigital.com/";
@@ -246,46 +257,214 @@ export const SITE_PRESETS: Record<string, SiteConfig> = {
       "Decision-ready outputs: shortlist with rationale and risks, not raw lists.",
     ],
     noindex: false,
+    faqAnswerSlugs: [
+      "distributor-vs-sales-agent-vs-reseller-japan",
+      "find-distributor-japan-without-wasting-months",
+      "screen-reliability-after-sales-japan",
+      "how-many-candidates-shortlist-japan",
+      "information-needed-japan-distributor-search",
+      "choose-right-distributor-category-japan",
+      "timeline-outreach-first-deals-japan",
+      "common-failure-patterns-japan-partners",
+    ],
     faq: [
       {
         question: "What is the difference between a distributor, sales agent, and reseller in Japan?",
+        slug: "distributor-vs-sales-agent-vs-reseller-japan",
+        preview:
+          "Distributors buy and hold inventory with coverage obligations; sales agents earn commission without stock; resellers are often opportunistic with lighter coverage — wrong type stalls progress.",
         answer:
           "A distributor buys and resells your product, assuming inventory risk and coverage obligations by territory or channel. A sales agent works on commission without holding stock, providing relationship access to buyers with less capital commitment. A reseller operates opportunistically with limited coverage commitment — terms vary widely and are often appropriate for e-commerce or niche channels. The right choice depends on your product category, volume expectations, and after-sales requirements.",
+        whyItMatters:
+          "Commercial terms, inventory risk, and who owns the customer relationship differ by partner type. Approaching the wrong structure wastes meetings and signals you do not understand how your category moves in Japan.",
+        evaluationCriteria: [
+          "Whether your category expects stockholding and local fulfilment",
+          "Whether you need importer-of-record and compliance handled by the partner",
+          "Channel access: retail listings vs. project or B2B account sales",
+          "Capital and MOQ the partner can absorb vs. commission-only motion",
+        ],
+        commonMistakes: [
+          "Treating a commission agent like a full distributor without confirming stock and logistics",
+          "Choosing a reseller for nationwide retail coverage without written obligations",
+          "Mixing partner types in the same outreach wave without a clear ask",
+        ],
+        relatedSlugs: [
+          "find-distributor-japan-without-wasting-months",
+          "choose-right-distributor-category-japan",
+        ],
       },
       {
         question: "How do you find a distributor in Japan without wasting months?",
+        slug: "find-distributor-japan-without-wasting-months",
+        preview:
+          "Use a tight brief, pre-screen for category fit, and targeted outreach — not bulk lists — so you reach a qualified shortlist in weeks, not endless cold cycles.",
         answer:
           "Start with a clear category-fit brief: product type, target channel, price corridor, and MOQ. We use structured outreach to a pre-screened network rather than cold mass contact. A defined screening checklist — covering coverage, capability, and channel conflicts — is applied before any introduction is made. This reduces the time from brief to qualified shortlist to four to eight weeks.",
+        whyItMatters:
+          "Time is lost to vague briefs, wrong categories, and partners who never intended to onboard a new foreign SKU. Structure front-loads rejection so effort goes only to plausible fits.",
+        evaluationCriteria: [
+          "Brief completeness: channel, price band, MOQ, certifications",
+          "Evidence the candidate covers your geography and account type",
+          "Early signal on willingness to engage (response quality, meeting appetite)",
+          "Conflict checks before exclusivity or deep diligence",
+        ],
+        commonMistakes: [
+          "Sending generic decks without channel or MOQ clarity",
+          "Measuring success by email volume instead of qualified meetings",
+          "Skipping follow-up cadence after the first non-reply",
+        ],
+        relatedSlugs: [
+          "information-needed-japan-distributor-search",
+          "timeline-outreach-first-deals-japan",
+        ],
       },
       {
         question: "How do you screen for reliability and after-sales support?",
+        slug: "screen-reliability-after-sales-japan",
+        preview:
+          "Reliability is verified through portfolio fit, logistics, compliance experience, and explicit after-sales capacity — not brand name alone.",
         answer:
           "We check category fit and portfolio overlap, geographic coverage, sales motion and account type, warehousing and logistics capacity, compliance handling experience, after-sales support capability, and potential conflicts of interest. After-sales capability — warranty handling, returns, and customer service SLA — is a core qualification requirement, not a bonus.",
+        whyItMatters:
+          "Japan buyers expect local support. A partner without after-sales capacity becomes a single point of failure after the first quality or service incident.",
+        evaluationCriteria: [
+          "Documented warranty, returns, and escalation path",
+          "Service parts or technical support reach for your product type",
+          "Warehouse conditions matching product requirements",
+          "Track record in your category (references, active SKUs)",
+        ],
+        commonMistakes: [
+          "Assuming a large name equals strong after-sales for your SKU",
+          "Not asking for SLA or ticket handling before contract discussion",
+          "Ignoring conflict of interest with competing lines",
+        ],
+        relatedSlugs: [
+          "distributor-vs-sales-agent-vs-reseller-japan",
+          "common-failure-patterns-japan-partners",
+        ],
       },
       {
         question: "How many candidates do you usually shortlist?",
+        slug: "how-many-candidates-shortlist-japan",
+        preview:
+          "Typically three to five qualified partners with rationale each — fit and engagement beat long undifferentiated lists.",
         answer:
           "We typically present three to five qualified candidates. Volume is not the objective — fit, willingness to engage, and capability alignment are. A smaller, well-qualified shortlist is more actionable than a long raw list. Each candidate entry includes individual rationale and risk notes.",
+        whyItMatters:
+          "Decision quality drops with too many options and no comparability framework. A shortlist forces explicit trade-offs on coverage, risk, and speed.",
+        evaluationCriteria: [
+          "Each name maps to a clear channel and geography thesis",
+          "Comparable notes on risk, upside, and required next steps",
+          "Confirmed or probable appetite to engage before you invest travel",
+        ],
+        commonMistakes: [
+          "Requesting ten-plus names without screening criteria",
+          "Treating all candidates as interchangeable",
+          "Omitting risk notes to appear \"positive\"",
+        ],
+        relatedSlugs: [
+          "information-needed-japan-distributor-search",
+          "find-distributor-japan-without-wasting-months",
+        ],
       },
       {
         question: "What information do you need to start a Japan distributor search?",
+        slug: "information-needed-japan-distributor-search",
+        preview:
+          "Product spec, target channel, price corridor, MOQ, logistics, certifications, and how fast you can respond — a one-page brief is enough to start.",
         answer:
           "Product specification, target channel (retail, foodservice, or industrial), price corridor, MOQ, logistics capability, certification or labelling constraints, and your internal response timeline. A one-page product brief in English is sufficient to start. The more specific your brief, the faster the category-fit screening.",
+        whyItMatters:
+          "Japan partners filter quickly on commercial viability and regulatory fit. Missing basics triggers slow back-and-forth or silent drop-off.",
+        evaluationCriteria: [
+          "HS or category clarity and sample lead time",
+          "Incoterms and export readiness from Malaysia",
+          "Label and compliance status for Japan",
+          "Internal owner for replies within a defined SLA",
+        ],
+        commonMistakes: [
+          "\"We'll decide pricing later\" without a corridor",
+          "No designated person for Japan-side follow-up",
+          "Omitting certification constraints until late stage",
+        ],
+        relatedSlugs: [
+          "find-distributor-japan-without-wasting-months",
+          "choose-right-distributor-category-japan",
+        ],
       },
       {
         question: "How do you choose the right distributor category in Japan?",
+        slug: "choose-right-distributor-category-japan",
+        preview:
+          "Match how your product actually reaches buyers — importers, wholesalers, trading houses, regional distributors, industrial, or e-com — mismatch is a top failure mode.",
         answer:
           "Distributor categories in Japan are structured around how product moves through the market — specialty import distributors, wholesalers, trading companies, regional distributors, OEM or industrial distributors, and e-commerce-focused resellers each serve different channels and geographies. Category mismatch between your product and a distributor's channel model is one of the most common early-stage failures.",
+        whyItMatters:
+          "The same product may flow through different channel stacks. The wrong category never lists you, or lists you without velocity.",
+        evaluationCriteria: [
+          "End-buyer type: retail shelf vs. foodservice vs. industrial account",
+          "Geographic coverage vs. national vs. regional strength",
+          "SKU breadth expectations vs. your launch size",
+          "Whether trading company or specialist importer is the norm in your segment",
+        ],
+        commonMistakes: [
+          "Pitching retail distributors for purely industrial motion (or the reverse)",
+          "Ignoring regional vs. national coverage assumptions",
+          "Selecting e-com-only partners for offline-heavy categories without a plan",
+        ],
+        relatedSlugs: [
+          "distributor-vs-sales-agent-vs-reseller-japan",
+          "common-failure-patterns-japan-partners",
+        ],
       },
       {
         question: "What is a realistic timeline from outreach to first deals?",
+        slug: "timeline-outreach-first-deals-japan",
+        preview:
+          "Rough guide: four to eight weeks to a vetted shortlist, then months of commercial discussion; first PO often three to six months from a solid brief.",
         answer:
           "From a confirmed brief to a qualified shortlist typically takes four to eight weeks. First commercial discussions take an additional four to twelve weeks depending on category and partner decision cycle. A realistic path to a first purchase order is three to six months from brief to contract. Timelines extend when brief clarity is low or when product certification is incomplete.",
+        whyItMatters:
+          "Planning cash flow, samples, and team availability against realistic cycles prevents abandoning good processes too early.",
+        evaluationCriteria: [
+          "Whether certifications are already aligned for Japan",
+          "Complexity of channel (retail listing vs. direct B2B)",
+          "Partner decision authority and meeting cadence",
+          "Your sample and data readiness",
+        ],
+        commonMistakes: [
+          "Expecting a PO after one meeting",
+          "Stopping outreach when the first partner delays",
+          "Starting before labels or reg data are stable",
+        ],
+        relatedSlugs: [
+          "find-distributor-japan-without-wasting-months",
+          "how-many-candidates-shortlist-japan",
+        ],
       },
       {
         question: "What are common failure patterns when selecting Japan partners?",
+        slug: "common-failure-patterns-japan-partners",
+        preview:
+          "Brand chasing, unclear coverage, skipped after-sales checks, weak follow-up, and early exclusivity — most are avoidable with upfront qualification.",
         answer:
           "Selecting on brand name rather than category fit; not defining coverage expectations upfront; skipping after-sales capability checks; failing to follow up after initial contact; and agreeing to exclusive arrangements before validating commitment. Most failures are preventable with structured qualification before the first outreach.",
+        whyItMatters:
+          "These patterns destroy trust on both sides and burn leverage before terms are clear. Recognising them early preserves optionality.",
+        evaluationCriteria: [
+          "Written clarity on territory, channel, and exclusivity triggers",
+          "After-sales and conflict diligence completed before signing",
+          "Defined internal follow-up ownership",
+        ],
+        commonMistakes: [
+          "Equating fame with fit for your SKU",
+          "Verbal coverage promises without confirmation",
+          "Granting exclusivity before proving sell-through intent",
+        ],
+        relatedSlugs: [
+          "screen-reliability-after-sales-japan",
+          "choose-right-distributor-category-japan",
+        ],
       },
     ],
   },
