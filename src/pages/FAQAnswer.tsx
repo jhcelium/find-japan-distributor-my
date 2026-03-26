@@ -11,7 +11,7 @@ import {
 } from "../lib/faq";
 
 const DATE_PUBLISHED = "2026-03-02";
-const DATE_MODIFIED = "2026-03-16";
+const DATE_MODIFIED = "2026-03-25";
 
 export default function FAQAnswer() {
   const { slug } = useParams<{ slug: string }>();

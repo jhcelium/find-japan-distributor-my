@@ -258,6 +258,7 @@ export const SITE_PRESETS: Record<string, SiteConfig> = {
     ],
     noindex: false,
     faqAnswerSlugs: [
+      "how-do-i-find-a-distributor-in-japan",
       "distributor-vs-sales-agent-vs-reseller-japan",
       "find-distributor-japan-without-wasting-months",
       "screen-reliability-after-sales-japan",
@@ -268,6 +269,34 @@ export const SITE_PRESETS: Record<string, SiteConfig> = {
       "common-failure-patterns-japan-partners",
     ],
     faq: [
+      {
+        question: "How Do I Find a Distributor in Japan?",
+        slug: "how-do-i-find-a-distributor-in-japan",
+        preview:
+          "Match channel motion and commercial reality first, then screen names for category fit, coverage, and capability — contact lists alone do not replace qualification.",
+        answer:
+          "Start by defining how your product should reach buyers in Japan — channel, geography, and commercial terms — then map which distributor categories and partner types actually run that motion. A list of contacts does not replace fit: you still need to screen for portfolio overlap, coverage, logistics, compliance handling, and after-sales capacity before investing in introductions. A concise written brief (product, MOQ, price corridor, certifications) keeps screening comparable and avoids months of unfocused outreach. From there, targeted contact and disciplined follow-up produce a small shortlist you can evaluate side by side.",
+        whyItMatters:
+          "Japanese B2B distribution rewards consistency and trust, but trust without operational fit rarely turns into listings or repeat orders. The real work is placing your SKU in the right channel stack, confirming who can import and support it locally, and whether a partner will commit — not simply who replies to email.",
+        evaluationCriteria: [
+          "End-buyer and channel match (retail, foodservice, industrial, e-commerce, or mixed)",
+          "Geographic coverage versus your launch plan (national vs. regional strength)",
+          "Partner-type fit: stockholding distributor vs. commission agent vs. opportunistic reseller",
+          "Importer-of-record and compliance behaviour for your product category",
+          "Warehousing, logistics, and after-sales capacity aligned to your SKU and MOQ",
+        ],
+        commonMistakes: [
+          "Treating distributor search as a contact hunt instead of a qualification process",
+          "Omitting channel, MOQ, or price corridor and expecting partners to infer fit",
+          "Equating a well-known company name with suitability for your specific category",
+          "Granting exclusivity or deep diligence before willingness and capability are proven",
+        ],
+        relatedSlugs: [
+          "find-distributor-japan-without-wasting-months",
+          "information-needed-japan-distributor-search",
+          "choose-right-distributor-category-japan",
+        ],
+      },
       {
         question: "What is the difference between a distributor, sales agent, and reseller in Japan?",
         slug: "distributor-vs-sales-agent-vs-reseller-japan",
@@ -314,6 +343,7 @@ export const SITE_PRESETS: Record<string, SiteConfig> = {
           "Skipping follow-up cadence after the first non-reply",
         ],
         relatedSlugs: [
+          "how-do-i-find-a-distributor-in-japan",
           "information-needed-japan-distributor-search",
           "timeline-outreach-first-deals-japan",
         ],
